@@ -1,0 +1,2 @@
+C:\Users\Chapolino\Desktop\Aplicacion WPF\DespertadorAPP\DespertadorAPP\bin\Release\net8.0-windows10.0.19041.0\win-x64\publish\DespertadorApp.pdb
+C:\Users\Chapolino\Desktop\Aplicacion WPF\DespertadorAPP\DespertadorAPP\bin\Release\net8.0-windows10.0.19041.0\win-x64\publish\DespertadorApp.exe

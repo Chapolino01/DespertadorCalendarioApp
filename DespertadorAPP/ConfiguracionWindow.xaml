@@ -1,0 +1,60 @@
+﻿<Window x:Class="DespertadorApp.ConfiguracionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Configuración" Height="780" Width="560"
+        WindowStartupLocation="CenterOwner"
+        FontFamily="Segoe UI"
+        Background="#0F1B33"
+        Foreground="{StaticResource TextoPrincipal}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24">
+
+            <TextBlock Text="Playlists" FontSize="20" FontWeight="Bold" Margin="0,0,0,12"/>
+
+            <TextBlock Text="Nombre" FontSize="12" Foreground="{StaticResource TextoSecundario}" Margin="0,0,0,4"/>
+            <TextBox x:Name="txtNombre" Style="{StaticResource CampoStyle}" Margin="0,0,0,8"/>
+
+            <TextBlock Text="URL" FontSize="12" Foreground="{StaticResource TextoSecundario}" Margin="0,0,0,4"/>
+            <TextBox x:Name="txtUrl" Style="{StaticResource CampoStyle}" Margin="0,0,0,8"/>
+
+            <Button Content="Agregar playlist" Style="{StaticResource BotonPrimarioStyle}"
+                    Click="Agregar_Click" Margin="0,4,0,12"/>
+
+            <ListBox x:Name="lstPlaylists" DisplayMemberPath="Nombre" Height="150"
+                     Style="{StaticResource ListaStyle}"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Button Content="Probar seleccionada" Style="{StaticResource BotonStyle}"
+                        Click="Probar_Click" Margin="0,0,10,0"/>
+                <Button Content="Eliminar seleccionada" Style="{StaticResource BotonStyle}"
+                        Click="Eliminar_Click"/>
+            </StackPanel>
+
+            <TextBlock Text="Frases motivacionales" FontSize="20" FontWeight="Bold" Margin="0,28,0,12"/>
+
+            <TextBlock Text="Página con frases" FontSize="12" Foreground="{StaticResource TextoSecundario}" Margin="0,0,0,4"/>
+            <TextBox x:Name="txtFuente" Style="{StaticResource CampoStyle}" Margin="0,0,0,8"/>
+
+            <Button Content="Guardar y cargar frases" Style="{StaticResource BotonPrimarioStyle}"
+                    Click="GuardarFuente_Click" Margin="0,4,0,8"/>
+            <TextBlock x:Name="txtEstado" Foreground="{StaticResource TextoSecundario}" TextWrapping="Wrap"/>
+
+            <TextBlock Text="Apariencia" FontSize="20" FontWeight="Bold" Margin="0,28,0,12"/>
+
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Elegir imagen de fondo" Style="{StaticResource BotonStyle}"
+                        Click="ElegirFondo_Click" Margin="0,0,10,0"/>
+                <Button Content="Quitar imagen" Style="{StaticResource BotonStyle}"
+                        Click="QuitarFondo_Click"/>
+            </StackPanel>
+            <TextBlock x:Name="txtFondoEstado" Foreground="{StaticResource TextoSecundario}" Margin="0,8,0,12"/>
+
+            <TextBlock x:Name="txtTransparencia" Margin="0,0,0,4"/>
+            <Slider x:Name="sldTransparencia" Minimum="0" Maximum="80" TickFrequency="5"
+                    IsSnapToTickEnabled="True" ValueChanged="Transparencia_ValueChanged"/>
+            <TextBlock Text="La transparencia se nota solo cuando hay una imagen de fondo."
+                       FontSize="12" Foreground="{StaticResource TextoSecundario}" Margin="0,4,0,0"/>
+
+        </StackPanel>
+    </ScrollViewer>
+</Window>

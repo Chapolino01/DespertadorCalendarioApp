@@ -1,0 +1,159 @@
+﻿<Window x:Class="DespertadorApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Despertador" Height="720" Width="1000" MinHeight="640" MinWidth="860"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Segoe UI"
+        Background="{DynamicResource FondoVentana}"
+        Foreground="{StaticResource TextoPrincipal}">
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Fila 1: reloj + próxima alarma + frase -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource TarjetaStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock x:Name="txtHora" Text="00:00" FontSize="68" FontWeight="Light"/>
+                        <TextBlock x:Name="txtFecha" FontSize="18" Foreground="{StaticResource TextoSecundario}"/>
+                    </StackPanel>
+
+                    <Border Grid.Column="1" Background="{DynamicResource TarjetaInterna}"
+                            BorderThickness="1" CornerRadius="12" Padding="16,12"
+                            VerticalAlignment="Center" Margin="12,0,0,0" MinWidth="150">
+                        <StackPanel>
+                            <TextBlock Text="Próxima alarma" FontSize="13" Foreground="{StaticResource TextoSecundario}"/>
+                            <TextBlock x:Name="txtProximaHora" Text="--:--" FontSize="28" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="txtProximaDetalle" Text="Sin alarmas" FontSize="13"
+                                       Foreground="{StaticResource TextoSecundario}"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource TarjetaStyle}" Background="{DynamicResource TarjetaFrase}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="txtFrase" FontSize="22" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    <Button Grid.Row="1" Content="Otra frase" Style="{StaticResource BotonStyle}"
+                            HorizontalAlignment="Left" Padding="12,5" FontSize="12"
+                            Margin="0,10,0,0" Click="OtraFrase_Click"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Fila 2: reproductor -->
+        <Border Grid.Row="1" Style="{StaticResource TarjetaStyle}" Margin="0,16,0,16">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock x:Name="txtPlaylist" Text="Sin playlists" FontSize="28" FontWeight="Bold"
+                                   TextTrimming="CharacterEllipsis"/>
+                        <TextBlock x:Name="txtCancion" Text="Sin reproducción" FontSize="16"
+                                   Foreground="{StaticResource Acento}" TextTrimming="CharacterEllipsis"
+                                   Margin="0,2,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock x:Name="txtPlaylistInfo" Foreground="{StaticResource TextoSecundario}"
+                                   VerticalAlignment="Center" Margin="0,0,12,0"/>
+                        <Button Content="Cambiar playlist" Style="{StaticResource BotonStyle}"
+                                Padding="12,5" FontSize="12" Click="CambiarPlaylist_Click"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="0,16,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button Style="{StaticResource BotonIconoStyle}" Content="&#xE892;"
+                                ToolTip="Anterior" Click="Anterior_Click"/>
+                        <Button x:Name="btnPlay" Style="{StaticResource BotonIconoStyle}" Content="&#xE768;"
+                                ToolTip="Reproducir / Pausar" Width="64" Height="64" FontSize="32"
+                                Margin="8,0" Click="Play_Click"/>
+                        <Button Style="{StaticResource BotonIconoStyle}" Content="&#xE893;"
+                                ToolTip="Siguiente" Click="Siguiente_Click"/>
+                        <Button x:Name="btnAleatorio" Style="{StaticResource BotonIconoStyle}" Content="&#xE8B1;"
+                                ToolTip="Modo aleatorio" Width="44" Height="44" FontSize="18"
+                                Margin="20,0,0,0" Click="Aleatorio_Click"/>
+                        <Button x:Name="btnRepetir" Style="{StaticResource BotonIconoStyle}"
+        ToolTip="Repetir: desactivado" Width="44" Height="44"
+        Margin="4,0,0,0" Click="Repetir_Click">
+                            <Grid>
+                                <TextBlock x:Name="icoRepetir" Text="&#xE8EE;" FontFamily="Segoe MDL2 Assets" FontSize="18"
+                   Foreground="{StaticResource TextoSecundario}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Ellipse x:Name="puntoRepetir" Width="5" Height="5" Fill="{StaticResource Acento}"
+                 Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="unoRepetir" Text="1" FontFamily="Segoe UI" FontSize="9" FontWeight="Bold"
+                   Foreground="{StaticResource Acento}" Visibility="Collapsed"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+
+                    <Canvas x:Name="cvOnda" Grid.Column="1" Height="72" Margin="32,0,0,0"
+                            ClipToBounds="True" SizeChanged="Onda_SizeChanged"/>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- Fila 3: semana -->
+        <Border Grid.Row="2" Style="{StaticResource TarjetaStyle}" Padding="16">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Esta semana" FontSize="16" FontWeight="SemiBold" Margin="4,0,0,8"/>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <UniformGrid x:Name="gridSemana" Columns="7"/>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- Fila 4: botones -->
+        <Grid Grid.Row="3" Margin="0,16,0,0">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Alarmas" Style="{StaticResource BotonStyle}" Click="Alarmas_Click" Margin="0,0,10,0"/>
+                <Button Content="Eventos" Style="{StaticResource BotonStyle}" Click="Eventos_Click" Margin="0,0,10,0"/>
+                <Button Content="Configuración" Style="{StaticResource BotonStyle}" Click="Configuracion_Click"/>
+            </StackPanel>
+            <Button Content="Probar despertar completo" Style="{StaticResource BotonPrimarioStyle}"
+                    HorizontalAlignment="Right" Click="Despertar_Click"/>
+        </Grid>
+    </Grid>
+</Window>
